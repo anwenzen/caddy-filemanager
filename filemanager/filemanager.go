@@ -20,6 +20,8 @@ func init() {
 	httpcaddyfile.RegisterHandlerDirective("file_manager", parseCaddyfile)
 }
 
+// FileManager is simple manager your website,
+// just only one function, delete file, no more.
 type FileManager struct {
 	Root string `json:"-,omitempty"`
 	log  *zap.Logger
