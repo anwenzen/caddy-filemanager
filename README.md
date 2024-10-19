@@ -29,6 +29,7 @@ add delete file options like this:
 }
 ```
 
+#### build
 ```shell
 xcaddy build --with github.com/anwenzen/caddy-filemanager
 ```
