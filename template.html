@@ -310,7 +310,6 @@
 		<meta charset="utf-8">
 		<meta name="color-scheme" content="light dark">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval'; connect-src 'self' http:; img-src 'self' blob: data:;"> -->
 <style {{ $nonceAttribute }}>
 * { padding: 0; margin: 0; box-sizing: border-box; }
 
@@ -1214,16 +1213,23 @@ footer {
                     }
                 })
                 if (data.files.length > 0) {
-                    console.log("post data:", JSON.stringify(data))
-                    fetch("/api", {
-                        method: "POST",
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(data)
-                    })
+					// console.log(data.files.toString())
+					fetch("/api", {
+						method: "POST",
+						headers: {
+						"Content-Type": "application/json",
+						},
+						body: JSON.stringify(data), 
+					}).then((res) => (res.json())).then((data) => {
+						if (data.msg == 'ok' ) {
+							window.location.href = window.location.href.split('?')[0] + '?_=' + new Date().getTime();
+						}
+					});
                 }
             }
             function GetUrlRelativePath(url) {
-                var arr = url.split("//");
+				let path = decodeURI(url)
+                var arr = path.split("//");
                 return arr[1].substring(arr[1].indexOf("/") + 1);
             }
 			var timeList = Array.prototype.slice.call(document.getElementsByTagName("time"));
