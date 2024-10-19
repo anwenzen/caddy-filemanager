@@ -32,7 +32,6 @@ func (fm *FileManager) Provision(ctx caddy.Context) error {
 
 func (fm FileManager) ServeHTTP(w http.ResponseWriter, r *http.Request, next caddyhttp.Handler) error {
 	if r.URL.Path == "/api" && r.Method == http.MethodGet {
-
 	}
 	if r.URL.Path == "/api" && r.Method == http.MethodPost {
 		buff, _ := io.ReadAll(r.Body)
