@@ -310,6 +310,7 @@
 		<meta charset="utf-8">
 		<meta name="color-scheme" content="light dark">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval'; connect-src 'self' http:; img-src 'self' blob: data:;">
 <style {{ $nonceAttribute }}>
 * { padding: 0; margin: 0; box-sizing: border-box; }
 
@@ -349,7 +350,7 @@ svg,
 	text-decoration: none;
 }
 
-#layout-list, #layout-grid {
+#layout-list, #layout-grid, #selected, #selected-function, .delete{
 	cursor: pointer;
 }
 
@@ -953,13 +954,12 @@ footer {
 						</th>
 						<th class="hideable"></th>
                         <th>
-                            <a id="selected-function" class='layout{{if eq $.Layout "grid"}}current{{end}}' >
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-layout-grid" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                    <path d="M4 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
-                                    <path d="M14 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
-                                    <path d="M4 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
-                                    <path d="M14 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
+                            <a id="selected-function">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-layout-grid" width="16" height="16" viewBox="0 0 50 50" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path fill="#9fa8da" d="M12,13v25c0,2.2,1.8,4,4,4h16c2.2,0,4-1.8,4-4V13H12z"></path>
+                                    <path fill="#7986cb" d="M23,15h2v23h-2V15z M29,15h2v23h-2V15z M17,15h2v23h-2V15z"></path>
+                                    <path fill="#5c6bc0" d="M12,10h24v4H12V10z"></path>
+                                    <path fill="#5c6bc0" d="M10,13h28v4H10V13z M20,12V8h8v4h2V8c0-1.1-0.9-2-2-2h-8c-1.1,0-2,0.9-2,2v4H20z"></path>
                                 </svg>
                                 Delete
                             </a>
@@ -1017,7 +1017,7 @@ footer {
 							<time datetime="{{.HumanModTime "2006-01-02T15:04:05Z"}}">{{.HumanModTime "01/02/2006 03:04:05 PM -07:00"}}</time>
 						</td>
 						<td class="hideable"></td>
-                        <td class="delete"> 
+                        <td class="delete" style="cursor:hand"> 
                             <input type="checkbox" class="selected" id="selected">
                         </td>
 					</tr>
@@ -1194,25 +1194,38 @@ footer {
 				e.textContent = d.toLocaleString();
 			}
             document.querySelectorAll('td.delete').forEach(td => {
-                td.addEventListener('click', function(e) {
+                td.addEventListener('click', function (e) {
+                    let c = td.querySelector('input[type="checkbox"]')
                     if (e.target.tagName !== 'INPUT') {
-                        td.querySelector('input[type="checkbox"]').click();
+                        c.click()
                     }
                 });
             });
-            document.getElementById("selected-function").addEventListener("click",
-            function selected(){
-                let data = {
-                    key1: 'value1',
-                    key2: 'value2' }
-                fetch("/api", {
-                    method: "POST",
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify(data)
+            document.getElementById("selected-function").addEventListener("click", selected);
+            function selected() {
+                var data = { "files": [] }
+                document.querySelectorAll('body > div > main > div.listing > table > tbody > tr').forEach(row => {
+                    let c = row.querySelector('input[type="checkbox"]')
+                    if (c != null && c.checked) {
+                        let a = row.querySelector("td > a")
+                        let url = a.href.toString()
+                        let path = GetUrlRelativePath(url)
+                        data.files.push(path)
+                    }
                 })
-                console.log("selected function");
-            });
-
+                if (data.files.length > 0) {
+                    console.log("post data:", JSON.stringify(data))
+                    fetch("api", {
+                        method: "POST",
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    })
+                }
+            }
+            function GetUrlRelativePath(url) {
+                var arr = url.split("//");
+                return arr[1].substring(arr[1].indexOf("/") + 1);
+            }
 			var timeList = Array.prototype.slice.call(document.getElementsByTagName("time"));
 			timeList.forEach(localizeDatetime);
 		</script>

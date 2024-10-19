@@ -1,9 +1,10 @@
 package filemanager
 
 import (
-	"html/template"
+	"encoding/json"
+	"fmt"
+	"io"
 	"net/http"
-	"path/filepath"
 
 	"github.com/caddyserver/caddy/v2"
 	"github.com/caddyserver/caddy/v2/caddyconfig/caddyfile"
@@ -31,36 +32,16 @@ func (fm *FileManager) Provision(ctx caddy.Context) error {
 
 func (fm FileManager) ServeHTTP(w http.ResponseWriter, r *http.Request, next caddyhttp.Handler) error {
 	if r.URL.Path == "/api" && r.Method == http.MethodGet {
-		files, err := filepath.Glob("./*")
-		if err != nil {
-			return err
-		}
 
-		tmpl := template.Must(template.New("index").Parse(`
-            <!DOCTYPE html>
-            <html>
-            <head>
-                <title>File Manager</title>
-            </head>
-            <body>
-                <form method="post" action="/api">
-                    {{range .}}
-                        <input type="checkbox" name="files" value="{{.}}">{{.}}<br>
-                    {{end}}
-                    <button type="submit">Delete Selected</button>
-                </form>
-            </body>
-            </html>
-        `))
-
-		if err := tmpl.Execute(w, files); err != nil {
-			return err
-		}
-		return nil
 	}
 	if r.URL.Path == "/api" && r.Method == http.MethodPost {
-		ServeHTTP(w, r, next)
+		buff, _ := io.ReadAll(r.Body)
+		w.Header().Set("Content-Type", "application/json")
+		m := map[string]string{"code": "0", "msg": "ok", "recived": string(buff)}
+		json.NewEncoder(w).Encode(m)
+		fmt.Println(string(buff))
 		return nil
+
 	}
 	return next.ServeHTTP(w, r)
 }
