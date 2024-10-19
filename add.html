@@ -1,0 +1,45 @@
+<style>
+td:nth-child(6),
+td:nth-child(6) input {
+	padding: 0 20px 0 20px;
+}
+
+</style>
+
+<th>
+    <a id="selected-function" class='layout{{if eq $.Layout "grid"}}current{{end}}' >
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-layout-grid" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M4 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
+            <path d="M14 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
+            <path d="M4 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
+            <path d="M14 14m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v4a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"/>
+        </svg>
+        Delete
+    </a>
+</th>
+<td class="delete"> 
+    <input type="checkbox" class="selected" id="selected">
+</td>
+
+<script>
+document.querySelectorAll('td.delete').forEach(td => {
+    td.addEventListener('click', function(e) {
+        if (e.target.tagName !== 'INPUT') {
+            td.querySelector('input[type="checkbox"]').click();
+        }
+    });
+});
+document.getElementById("selected-function").addEventListener("click",
+function selected(){
+    let data = {
+        key1: 'value1',
+        key2: 'value2' }
+    fetch("/api", {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    })
+    console.log("selected function");
+});
+</script>
