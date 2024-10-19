@@ -310,7 +310,7 @@
 		<meta charset="utf-8">
 		<meta name="color-scheme" content="light dark">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval'; connect-src 'self' http:; img-src 'self' blob: data:;">
+        <!-- <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval'; connect-src 'self' http:; img-src 'self' blob: data:;"> -->
 <style {{ $nonceAttribute }}>
 * { padding: 0; margin: 0; box-sizing: border-box; }
 
@@ -1215,7 +1215,7 @@ footer {
                 })
                 if (data.files.length > 0) {
                     console.log("post data:", JSON.stringify(data))
-                    fetch("api", {
+                    fetch("/api", {
                         method: "POST",
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(data)
