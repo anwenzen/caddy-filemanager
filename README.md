@@ -28,3 +28,7 @@ add delete file options like this:
     }
 }
 ```
+
+```shell
+xcaddy build --with github.com/anwenzen/caddy-filemanager
+```
