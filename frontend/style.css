@@ -1,0 +1,560 @@
+/* ==========================================================================
+   Caddy File Manager - Dark Theme Styles
+   ========================================================================== */
+
+/* CSS Variables */
+:root {
+    --bg-primary: #1a1a2e;
+    --bg-secondary: #16213e;
+    --bg-card: #0f3460;
+    --bg-hover: #1a4a7a;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0b0;
+    --text-muted: #707080;
+    --accent: #4fc3f7;
+    --accent-hover: #29b6f6;
+    --danger: #ef5350;
+    --danger-hover: #e53935;
+    --success: #66bb6a;
+    --warning: #ffa726;
+    --border: #2a2a4e;
+    --progress-bg: #2a2a4e;
+    --progress-fill: #4fc3f7;
+    --progress-danger: #ef5350;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --radius: 8px;
+    --radius-sm: 4px;
+    --transition: 0.2s ease;
+}
+
+/* Reset & Base */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ==========================================================================
+   Disk Info Bar
+   ========================================================================== */
+
+.disk-bar {
+    background: var(--bg-secondary);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.disk-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.disk-icon {
+    font-size: 18px;
+}
+
+.disk-progress-container {
+    flex: 1;
+    max-width: 300px;
+    height: 8px;
+    background: var(--progress-bg);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.disk-progress-bar {
+    height: 100%;
+    background: var(--progress-fill);
+    border-radius: 4px;
+    transition: width 0.5s ease, background-color 0.3s ease;
+}
+
+.disk-progress-bar.danger {
+    background: var(--progress-danger);
+}
+
+/* ==========================================================================
+   Container
+   ========================================================================== */
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+/* ==========================================================================
+   Breadcrumb
+   ========================================================================== */
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    background: var(--bg-secondary);
+    border-radius: var(--radius);
+    font-size: 14px;
+}
+
+.breadcrumb-item {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color var(--transition);
+}
+
+.breadcrumb-item:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+    color: var(--text-primary);
+    pointer-events: none;
+}
+
+.breadcrumb-separator {
+    color: var(--text-muted);
+    margin: 0 2px;
+}
+
+/* ==========================================================================
+   File Table
+   ========================================================================== */
+
+.file-table-wrapper {
+    background: var(--bg-secondary);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.file-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.file-table thead {
+    background: var(--bg-card);
+}
+
+.file-table th {
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--border);
+}
+
+.file-table td {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.file-table tbody tr {
+    transition: background var(--transition);
+}
+
+.file-table tbody tr:hover {
+    background: var(--bg-hover);
+}
+
+.file-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.col-name {
+    width: 45%;
+}
+
+.col-size {
+    width: 15%;
+}
+
+.col-time {
+    width: 25%;
+}
+
+.col-action {
+    width: 15%;
+    text-align: center;
+}
+
+/* File name cell */
+.file-name {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.file-name-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.file-name-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color var(--transition);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.file-name-link:hover {
+    color: var(--accent);
+}
+
+.file-name-link.dir {
+    color: var(--accent);
+    font-weight: 500;
+}
+
+.file-name-link.dir:hover {
+    color: var(--accent-hover);
+}
+
+/* File size and time */
+.file-size,
+.file-time {
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+
+/* Loading text */
+.loading-text {
+    text-align: center;
+    color: var(--text-muted);
+    padding: 40px 16px !important;
+}
+
+/* ==========================================================================
+   Empty State
+   ========================================================================== */
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+    font-size: 16px;
+}
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition);
+    outline: none;
+}
+
+.btn-delete {
+    background: transparent;
+    color: var(--danger);
+    padding: 6px 10px;
+    font-size: 16px;
+}
+
+.btn-delete:hover {
+    background: rgba(239, 83, 80, 0.15);
+    transform: scale(1.1);
+}
+
+.btn-cancel {
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.btn-cancel:hover {
+    background: var(--bg-hover);
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: #fff;
+}
+
+.btn-danger:hover {
+    background: var(--danger-hover);
+}
+
+/* ==========================================================================
+   Modal
+   ========================================================================== */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    backdrop-filter: blur(2px);
+}
+
+.modal {
+    background: var(--bg-secondary);
+    border-radius: var(--radius);
+    width: 90%;
+    max-width: 420px;
+    box-shadow: 0 8px 32px var(--shadow);
+    animation: modalIn 0.2s ease;
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+}
+
+.modal-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 24px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px;
+    transition: color var(--transition);
+}
+
+.modal-close:hover {
+    color: var(--text-primary);
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-body p {
+    margin-bottom: 16px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.password-field {
+    margin-top: 12px;
+}
+
+.password-field label {
+    display: block;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+}
+
+.password-field input {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 14px;
+    outline: none;
+    transition: border-color var(--transition);
+}
+
+.password-field input:focus {
+    border-color: var(--accent);
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+}
+
+/* ==========================================================================
+   Toast
+   ========================================================================== */
+
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.toast {
+    padding: 12px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    color: #fff;
+    box-shadow: 0 4px 12px var(--shadow);
+    animation: toastIn 0.3s ease, toastOut 0.3s ease 2.7s forwards;
+    max-width: 320px;
+    word-break: break-word;
+}
+
+.toast.success {
+    background: var(--success);
+}
+
+.toast.error {
+    background: var(--danger);
+}
+
+.toast.info {
+    background: var(--accent);
+    color: #1a1a2e;
+}
+
+@keyframes toastIn {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes toastOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    .disk-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 10px 16px;
+    }
+
+    .disk-progress-container {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .container {
+        padding: 16px;
+    }
+
+    .breadcrumb {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .file-table th,
+    .file-table td {
+        padding: 8px 10px;
+    }
+
+    .col-time {
+        display: none;
+    }
+
+    .col-name {
+        width: 55%;
+    }
+
+    .col-size {
+        width: 25%;
+    }
+
+    .col-action {
+        width: 20%;
+    }
+
+    .toast-container {
+        top: auto;
+        bottom: 20px;
+        right: 16px;
+        left: 16px;
+    }
+
+    .toast {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .file-table .col-size {
+        display: none;
+    }
+
+    .col-name {
+        width: 70%;
+    }
+
+    .col-action {
+        width: 30%;
+    }
+}

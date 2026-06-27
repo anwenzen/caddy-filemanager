@@ -1,0 +1,10 @@
+# Build output
+/build/
+
+# Caddy runtime
+*.log
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/

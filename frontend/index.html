@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文件管理器</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <!-- Disk Info Bar -->
+    <header class="disk-bar">
+        <div class="disk-info">
+            <span class="disk-icon">💾</span>
+            <span id="disk-text">加载中...</span>
+        </div>
+        <div class="disk-progress-container">
+            <div class="disk-progress-bar" id="disk-progress" style="width: 0%"></div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Breadcrumb Navigation -->
+        <nav class="breadcrumb" id="breadcrumb">
+            <a href="#/" class="breadcrumb-item">根目录</a>
+        </nav>
+
+        <!-- File List Table -->
+        <div class="file-table-wrapper">
+            <table class="file-table">
+                <thead>
+                    <tr>
+                        <th class="col-name">名称</th>
+                        <th class="col-size">大小</th>
+                        <th class="col-time">修改时间</th>
+                        <th class="col-action">操作</th>
+                    </tr>
+                </thead>
+                <tbody id="file-list">
+                    <tr>
+                        <td colspan="4" class="loading-text">加载中...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="empty-state" style="display: none;">
+            <p>📂 当前目录为空</p>
+        </div>
+    </main>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal-overlay" id="delete-modal" style="display: none;">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>确认删除</h3>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="delete-message">确定要删除此文件吗？</p>
+                <div class="password-field" id="password-field" style="display: none;">
+                    <label for="delete-password">删除密码：</label>
+                    <input type="password" id="delete-password" placeholder="请输入删除密码" autocomplete="off">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-cancel" id="btn-cancel">取消</button>
+                <button class="btn btn-danger" id="btn-confirm-delete">确认删除</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="/app.js"></script>
+</body>
+</html>
