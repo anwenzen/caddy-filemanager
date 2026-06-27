@@ -12,9 +12,13 @@ An HTTP handler plugin for [Caddy v2](https://caddyserver.com/) that provides a 
 
 > The main UI: a disk-usage bar at the top, breadcrumb navigation, and a file
 > table listing name / size / modification time with per-row delete actions.
->
-> Want an animated demo too? Record the browse → enter directory →
-> delete-with-confirmation flow and add it as `docs/demo.gif`, then reference it here.
+
+### Demo
+
+![Browse and delete flow](docs/demo.gif)
+
+> Animated flow: root listing → entering a subdirectory (breadcrumb updates) →
+> the delete-confirmation dialog.
 
 ---
 
