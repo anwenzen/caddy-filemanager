@@ -1,0 +1,11 @@
+{
+	admin off
+}
+
+:8080 {
+	route {
+		file_manager {
+			root /Users/wenzen/Downloads
+		}
+	}
+}

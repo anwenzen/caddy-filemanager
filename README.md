@@ -6,20 +6,15 @@ An HTTP handler plugin for [Caddy v2](https://caddyserver.com/) that provides a 
 
 ---
 
-## Screenshots
+## Screenshot
 
-<!--
-  Placeholder: replace the paths below with your actual screenshot / GIF.
-  Recommended: put assets under docs/ (e.g. docs/screenshot.png, docs/demo.gif).
-  Example capture: run the server, open http://localhost:8080, then record the
-  browse → enter directory → delete-with-confirmation flow.
--->
+![Caddy File Manager main UI](docs/screenshot.png)
 
-| Main UI | Delete flow (demo) |
-| ------- | ------------------ |
-| ![File manager main UI](docs/screenshot.png) | ![Delete flow demo](docs/demo.gif) |
-
-> The image links above are placeholders. Add `docs/screenshot.png` (a still of the file list + disk bar) and `docs/demo.gif` (a short recording of the browse/delete flow) to make them render.
+> The main UI: a disk-usage bar at the top, breadcrumb navigation, and a file
+> table listing name / size / modification time with per-row delete actions.
+>
+> Want an animated demo too? Record the browse → enter directory →
+> delete-with-confirmation flow and add it as `docs/demo.gif`, then reference it here.
 
 ---
 
