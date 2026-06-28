@@ -1,4 +1,4 @@
-module github.com/example/caddy-file-manager
+module github.com/anwenzen/caddy-file-manager
 
 go 1.21.0
 

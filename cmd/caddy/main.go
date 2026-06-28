@@ -10,7 +10,7 @@ import (
 	_ "github.com/caddyserver/caddy/v2/modules/standard"
 
 	// Register the file_manager handler module from this repository.
-	_ "github.com/example/caddy-file-manager"
+	_ "github.com/anwenzen/caddy-file-manager"
 )
 
 func main() {
